@@ -47,12 +47,12 @@ public class Main {
     }
     
     private void validate(List<Currency> currencies, String from, String to, Number value, String quotation) {
-        if (from == null && to == null && value == null && quotation == null) {
+        if (from == null || to == null || value == null || quotation == null) {
             throw new IllegalArgumentException("All parameters must be filled!");
         }
         
         if (currencies.isEmpty()) {
-            throw new IllegalArgumentException("No quotation found for reported date!");
+            throw new NoSuchElementException("No quotation found for reported date!");
         }
         
         if (currencies.stream().noneMatch(c -> c.getName().equalsIgnoreCase(from))) {
@@ -100,7 +100,7 @@ public class Main {
         return currencies;
     }
     
-    public void printCurrency(Currency c) {
+    private void printCurrency(Currency c) {
         System.out.println("\nCod: " + c.getCod());
         System.out.println("Name: " + c.getName());
         System.out.println("Type: " + c.getType());
